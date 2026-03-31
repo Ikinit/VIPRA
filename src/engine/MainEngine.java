@@ -59,9 +59,9 @@ public class MainEngine {
         //algorithmRegistry.put("Last Recently Used (LRU)", new LRU());
         //algorithmRegistry.put("Optimal Page Replacement Algorithm (OPT)", new OPT());
         //algorithmRegistry.put("Second Chance Algorithm", new SCA());
-        //algorithmRegistry.put("Enhanced Second Chance Algorithm", new ESCA());
-        //algorithmRegistry.put("Least Frequently Used (LFU)", new LFU());
-        //algorithmRegistry.put("Most Frequently Used (MFU)", new MFU());
+        algorithmRegistry.put("Enhanced Second Chance Algorithm", new ESCA());
+        algorithmRegistry.put("Least Frequently Used (LFU)", new LFU());
+        algorithmRegistry.put("Most Frequently Used (MFU)", new MFU());
     }
 
     // ==================================================
