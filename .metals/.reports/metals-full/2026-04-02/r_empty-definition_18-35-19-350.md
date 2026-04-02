@@ -1,3 +1,14 @@
+error id: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java:javax/swing/JComponent#setPreferredSize().
+file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java
+empty definition using pc, found symbol in pc: javax/swing/JComponent#setPreferredSize().
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+
+offset: 10513
+uri: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java
+text:
+```scala
 package graphics;
 
 import engine.MainEngine;
@@ -253,7 +264,7 @@ public class ScrnSimulatorOutput extends JPanel {
         exportPngBtn.addActionListener(e -> exportToPng());
 
         exportPdfBtn = makePillButton("Export to PDF");
-        exportPdfBtn.setPreferredSize(new Dimension(180, 48));
+        exportPdfBtn.setPreferredSi@@ze(new Dimension(180, 48));
         exportPdfBtn.addActionListener(e -> exportToPdf());
 
         JPanel exportPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
@@ -320,7 +331,6 @@ public class ScrnSimulatorOutput extends JPanel {
         scrollContent.add(Box.createVerticalStrut(16));
         scrollContent.revalidate();
         scrollContent.repaint();
-        setExportEnabled(false);
         startTimer();
     }
 
@@ -492,7 +502,6 @@ public class ScrnSimulatorOutput extends JPanel {
                     gp.advance();
             } else {
                 simulationTimer.stop();
-                setExportEnabled(true);
             }
         });
         simulationTimer.start();
@@ -655,12 +664,6 @@ public class ScrnSimulatorOutput extends JPanel {
     // ==================================================
     //               HELPERS
     // ==================================================
-
-    private void setExportEnabled(boolean enabled) {
-        if (exportPngBtn != null) exportPngBtn.setEnabled(enabled);
-        if (exportPdfBtn != null) exportPdfBtn.setEnabled(enabled);
-    }
-
     private JLabel makeMonoLabel(String text, Font font, int size) {
         JLabel lbl = new JLabel(text);
         lbl.setFont(font.deriveFont((float) size));
@@ -737,3 +740,9 @@ public class ScrnSimulatorOutput extends JPanel {
         repaint();
     }
 }
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: javax/swing/JComponent#setPreferredSize().

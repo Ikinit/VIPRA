@@ -1,3 +1,14 @@
+error id: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java:java/lang/String#
+file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java
+empty definition using pc, found symbol in pc: java/lang/String#
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+
+offset: 23010
+uri: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java
+text:
+```scala
 package graphics;
 
 import engine.MainEngine;
@@ -32,9 +43,6 @@ public class ScrnSimulatorOutput extends JPanel {
 
     private Timer simulationTimer;
     private int currentTime = 0;
-
-    private JButton exportPngBtn;
-    private JButton exportPdfBtn;
 
     // Holds the result of one algorithm run
     public static class AlgoResult {
@@ -248,11 +256,11 @@ public class ScrnSimulatorOutput extends JPanel {
         center.add(speedLbl);
         center.add(speedButton);
 
-        exportPngBtn = makePillButton("Export to PNG");
+        JButton exportPngBtn = makePillButton("Export to PNG");
         exportPngBtn.setPreferredSize(new Dimension(180, 48));
         exportPngBtn.addActionListener(e -> exportToPng());
 
-        exportPdfBtn = makePillButton("Export to PDF");
+        JButton exportPdfBtn = makePillButton("Export to PDF");
         exportPdfBtn.setPreferredSize(new Dimension(180, 48));
         exportPdfBtn.addActionListener(e -> exportToPdf());
 
@@ -320,7 +328,6 @@ public class ScrnSimulatorOutput extends JPanel {
         scrollContent.add(Box.createVerticalStrut(16));
         scrollContent.revalidate();
         scrollContent.repaint();
-        setExportEnabled(false);
         startTimer();
     }
 
@@ -492,7 +499,6 @@ public class ScrnSimulatorOutput extends JPanel {
                     gp.advance();
             } else {
                 simulationTimer.stop();
-                setExportEnabled(true);
             }
         });
         simulationTimer.start();
@@ -543,7 +549,7 @@ public class ScrnSimulatorOutput extends JPanel {
     // ==================================================
     private void exportToPdf() {
         try {
-            String timestamp = new java.text.SimpleDateFormat("MMddyy_HHmmss").format(new java.util.Date());
+            S@@tring timestamp = new java.text.SimpleDateFormat("MMddyy_HHmmss").format(new java.util.Date());
             File file = new File(timestamp + "_PG.pdf");
 
             int panelW = scrollContent.getWidth();
@@ -655,12 +661,6 @@ public class ScrnSimulatorOutput extends JPanel {
     // ==================================================
     //               HELPERS
     // ==================================================
-
-    private void setExportEnabled(boolean enabled) {
-        if (exportPngBtn != null) exportPngBtn.setEnabled(enabled);
-        if (exportPdfBtn != null) exportPdfBtn.setEnabled(enabled);
-    }
-
     private JLabel makeMonoLabel(String text, Font font, int size) {
         JLabel lbl = new JLabel(text);
         lbl.setFont(font.deriveFont((float) size));
@@ -737,3 +737,9 @@ public class ScrnSimulatorOutput extends JPanel {
         repaint();
     }
 }
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: java/lang/String#

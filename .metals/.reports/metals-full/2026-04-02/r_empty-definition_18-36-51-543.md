@@ -1,3 +1,14 @@
+error id: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java:javax/swing/Timer#stop().
+file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java
+empty definition using pc, found symbol in pc: javax/swing/Timer#stop().
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+
+offset: 21185
+uri: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java
+text:
+```scala
 package graphics;
 
 import engine.MainEngine;
@@ -491,7 +502,7 @@ public class ScrnSimulatorOutput extends JPanel {
                 for (AlgoGridPanel gp : gridPanels)
                     gp.advance();
             } else {
-                simulationTimer.stop();
+                simulationTimer.@@stop();
                 setExportEnabled(true);
             }
         });
@@ -737,3 +748,9 @@ public class ScrnSimulatorOutput extends JPanel {
         repaint();
     }
 }
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: javax/swing/Timer#stop().

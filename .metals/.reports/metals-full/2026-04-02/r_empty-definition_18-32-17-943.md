@@ -1,3 +1,14 @@
+error id: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java:javax/swing/JFileChooser#
+file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java
+empty definition using pc, found symbol in pc: javax/swing/JFileChooser#
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+
+offset: 21882
+uri: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java
+text:
+```scala
 package graphics;
 
 import engine.MainEngine;
@@ -32,9 +43,6 @@ public class ScrnSimulatorOutput extends JPanel {
 
     private Timer simulationTimer;
     private int currentTime = 0;
-
-    private JButton exportPngBtn;
-    private JButton exportPdfBtn;
 
     // Holds the result of one algorithm run
     public static class AlgoResult {
@@ -248,11 +256,11 @@ public class ScrnSimulatorOutput extends JPanel {
         center.add(speedLbl);
         center.add(speedButton);
 
-        exportPngBtn = makePillButton("Export to PNG");
+        JButton exportPngBtn = makePillButton("Export to PNG");
         exportPngBtn.setPreferredSize(new Dimension(180, 48));
         exportPngBtn.addActionListener(e -> exportToPng());
 
-        exportPdfBtn = makePillButton("Export to PDF");
+        JButton exportPdfBtn = makePillButton("Export to PDF");
         exportPdfBtn.setPreferredSize(new Dimension(180, 48));
         exportPdfBtn.addActionListener(e -> exportToPdf());
 
@@ -320,7 +328,6 @@ public class ScrnSimulatorOutput extends JPanel {
         scrollContent.add(Box.createVerticalStrut(16));
         scrollContent.revalidate();
         scrollContent.repaint();
-        setExportEnabled(false);
         startTimer();
     }
 
@@ -492,7 +499,6 @@ public class ScrnSimulatorOutput extends JPanel {
                     gp.advance();
             } else {
                 simulationTimer.stop();
-                setExportEnabled(true);
             }
         });
         simulationTimer.start();
@@ -517,8 +523,14 @@ public class ScrnSimulatorOutput extends JPanel {
     // ==================================================
     private void exportToPng() {
         try {
-            String timestamp = new java.text.SimpleDateFormat("MMddyy_HHmmss").format(new java.util.Date());
-            File file = new File(timestamp + "_PG.png");
+            J@@FileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Export Simulation to PNG");
+            chooser.setSelectedFile(new File("simulation_output.png"));
+            if (chooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) return;
+
+            File file = chooser.getSelectedFile();
+            if (!file.getName().toLowerCase().endsWith(".png"))
+                file = new File(file.getAbsolutePath() + ".png");
 
             BufferedImage img = new BufferedImage(
                     scrollContent.getWidth(), scrollContent.getHeight(),
@@ -543,8 +555,14 @@ public class ScrnSimulatorOutput extends JPanel {
     // ==================================================
     private void exportToPdf() {
         try {
-            String timestamp = new java.text.SimpleDateFormat("MMddyy_HHmmss").format(new java.util.Date());
-            File file = new File(timestamp + "_PG.pdf");
+            JFileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Export Simulation to PDF");
+            chooser.setSelectedFile(new File("simulation_output.pdf"));
+            if (chooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) return;
+
+            File file = chooser.getSelectedFile();
+            if (!file.getName().toLowerCase().endsWith(".pdf"))
+                file = new File(file.getAbsolutePath() + ".pdf");
 
             int panelW = scrollContent.getWidth();
             int panelH = scrollContent.getHeight();
@@ -655,12 +673,6 @@ public class ScrnSimulatorOutput extends JPanel {
     // ==================================================
     //               HELPERS
     // ==================================================
-
-    private void setExportEnabled(boolean enabled) {
-        if (exportPngBtn != null) exportPngBtn.setEnabled(enabled);
-        if (exportPdfBtn != null) exportPdfBtn.setEnabled(enabled);
-    }
-
     private JLabel makeMonoLabel(String text, Font font, int size) {
         JLabel lbl = new JLabel(text);
         lbl.setFont(font.deriveFont((float) size));
@@ -737,3 +749,9 @@ public class ScrnSimulatorOutput extends JPanel {
         repaint();
     }
 }
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: javax/swing/JFileChooser#
