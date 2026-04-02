@@ -1,3 +1,14 @@
+error id: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnMainMenuHowToUse.java:java/awt/BorderLayout#
+file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnMainMenuHowToUse.java
+empty definition using pc, found symbol in pc: java/awt/BorderLayout#
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+
+offset: 947
+uri: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnMainMenuHowToUse.java
+text:
+```scala
 package graphics;
 
 import engine.MainEngine;
@@ -26,9 +37,9 @@ public class ScrnMainMenuHowToUse extends JPanel {
 
         initializeMainPanel();
     }
-
+    
     public void initializeMainPanel() {
-        JPanel margin = new JPanel(new BorderLayout());
+        JPanel margin = new JPanel(new Border@@Layout());
         margin.setOpaque(false);
 
         int m = 40;
@@ -64,23 +75,23 @@ public class ScrnMainMenuHowToUse extends JPanel {
         margin.add(container, BorderLayout.CENTER);
         add(margin, BorderLayout.CENTER);
     }
-
+    
     public void buildContent(JPanel c) {
         titleLabel = new JLabel("How To Use", SwingConstants.CENTER);
         titleLabel.setFont(branding.jetBrainsBExtraLarge);
         titleLabel.setForeground(branding.light);
         c.add(titleLabel);
 
-        algoDesc = makeText("Select your preferred algorithm/s by choosing from the options.");
+        algoDesc = makeText("Select your preferred algorithm by choosing from the dropdown menu.");
         c.add(algoDesc);
 
         algoImage = makeImagePanel(null, "algo");
         c.add(algoImage);
 
-        outputDesc = makeText("The output of the simulation will be shown here.");
+        outputDesc = makeText("The output of the simulation will be shown here along with the Gantt chart and the computation table.");
         c.add(outputDesc);
 
-        tableTitleLabel = new JLabel("Input your string separated by spaces");
+        tableTitleLabel = new JLabel("Input your data on this table shown below");
         tableTitleLabel.setFont(branding.jetBrainsBMedium);
         tableTitleLabel.setForeground(branding.light);
         c.add(tableTitleLabel);
@@ -88,7 +99,7 @@ public class ScrnMainMenuHowToUse extends JPanel {
         tableImage = makeImagePanel(null, "input");
         c.add(tableImage);
 
-        removeHint = makeText("You can select random input or import from txt files");
+        removeHint = makeText("To remove multiple processes, select the process under the Process Id column and select the Remove Process button.");
         c.add(removeHint);
 
         buttonsImage = makeImagePanel(null, "buttons");
@@ -97,7 +108,7 @@ public class ScrnMainMenuHowToUse extends JPanel {
         outputImage = makeImagePanel(null, "output");
         c.add(outputImage);
 
-        backButton = new JButton("Back To Menu") {
+        backButton = new JButton("Back to Menu") {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
@@ -145,7 +156,7 @@ public class ScrnMainMenuHowToUse extends JPanel {
         });
         c.add(backButton);
     }
-
+    
     public void refreshStyles() {
         titleLabel.setForeground(branding.light);
         tableTitleLabel.setForeground(branding.light);
@@ -154,70 +165,50 @@ public class ScrnMainMenuHowToUse extends JPanel {
         removeHint.setForeground(branding.light);
         backButton.setForeground(branding.light);
         backButton.setBackground(branding.dark);
-
+        
         algoImage.repaint();
         tableImage.repaint();
         buttonsImage.repaint();
         outputImage.repaint();
-
+        
         repaint();
         revalidate();
     }
-
+    
     public void repositionContent(int W, int H) {
         int pad = (int) (W * 0.04);
-        int titleH = (int) (H * 0.12);
-
-        int leftX  = pad;
-        int leftW  = (int) (W * 0.27);
-
-        int midX   = (int) (W * 0.31);
-        int midW   = (int) (W * 0.36);
-
-        int rightX = (int) (W * 0.69);
+        int titleH = (int) (H * 0.09);
+        
+        int leftW = (int) (W * 0.26);
+        int midX = (int) (W * 0.30);
+        int midW = (int) (W * 0.48);
+        int rightX = (int) (W * 0.79);
         int rightW = W - rightX - pad;
 
         int topRowY = titleH;
-        int topRowH = (int) (H * 0.46);
-
-        int botRowY = (int) (H * 0.60);
-        int botRowH = H - botRowY - (int)(H * 0.04);
+        int topRowH = (int) (H * 0.50);
+        int botRowY = (int) (H * 0.56);
+        int botRowH = H - botRowY - pad;
 
         int btnW = 200, btnH = 48;
-
-        titleLabel.setBounds(0, (int)(titleH * 0.1), W, (int)(titleH * 0.75));
-
-        int algoDescH = (int)(H * 0.13);
-        algoDesc.setBounds(leftX, topRowY, leftW, algoDescH);
-
-        int algoImgY = topRowY + algoDescH + (int)(H * 0.01);
-        int algoImgH = (int)(H * 0.30);
-        algoImage.setBounds(leftX, algoImgY, leftW, algoImgH);
-
-        int outputDescY = algoImgY + algoImgH + (int)(H * 0.02);
-        int outputDescH = (int)(H * 0.10);
-        outputDesc.setBounds(leftX, outputDescY, leftW, outputDescH);
-
-        backButton.setBounds(leftX, H - btnH - pad, btnW, btnH);
-
-        int tableLabelH = (int)(H * 0.07);
+        
+        titleLabel.setBounds(0, (int)(titleH * 0.1), W, (int)(titleH * 0.8));
+        
+        algoDesc.setBounds(pad, topRowY, leftW, (int)(H * 0.12));
+        algoImage.setBounds(pad + (int)(leftW * 0.1), topRowY + (int)(H * 0.13), (int)(leftW * 0.85), (int)(topRowH * 0.62));
+        outputDesc.setBounds(pad, botRowY, leftW, (int)(H * 0.14));
+        
+        int tableLabelH = (int)(H * 0.05);
         tableTitleLabel.setBounds(midX, topRowY, midW, tableLabelH);
-
-        int tableImgH = (int)(H * 0.36);
-        tableImage.setBounds(midX, topRowY + tableLabelH + 4, midW, tableImgH);
-
-        int outX = midX;
-        int outW = W - midX - pad;
-        outputImage.setBounds(outX, botRowY, outW, botRowH);
-
-        int btnsImgH = (int)(H * 0.18);
-        buttonsImage.setBounds(rightX, topRowY, rightW, btnsImgH);
-
-        int removeHintY = topRowY + btnsImgH + (int)(H * 0.02);
-        int removeHintH = (int)(H * 0.18);
-        removeHint.setBounds(rightX, removeHintY, rightW, removeHintH);
+        tableImage.setBounds(midX, topRowY + tableLabelH + 4, midW, (int)(topRowH * 0.48));
+        removeHint.setBounds(midX, topRowY + tableLabelH + 4 + (int)(topRowH * 0.48) + 8, (int)(midW * 0.68), (int)(H * 0.18));
+        
+        buttonsImage.setBounds(rightX, topRowY, rightW, topRowH);
+        
+        outputImage.setBounds(midX + (int)(midW * 0.38), botRowY, W - (midX + (int)(midW * 0.38)) - pad, botRowH);
+        backButton.setBounds(pad, H - btnH - pad, btnW, btnH);
     }
-
+    
     public JPanel blankPanel(int height, int width, boolean isHorizontal) {
         JPanel p = new JPanel();
         p.setOpaque(false);
@@ -246,7 +237,7 @@ public class ScrnMainMenuHowToUse extends JPanel {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-
+                
                 Image currentImage = null;
                 if ("algo".equals(imageType)) {
                     currentImage = branding.darkHowToUseAlgo;
@@ -257,14 +248,11 @@ public class ScrnMainMenuHowToUse extends JPanel {
                 } else if ("output".equals(imageType)) {
                     currentImage = branding.darkHowToUseOutput;
                 }
-
-                if (currentImage == null) return;
-
+                
                 int pw = getWidth(), ph = getHeight();
                 int imgW = currentImage.getWidth(this);
                 int imgH = currentImage.getHeight(this);
-                if (imgW <= 0 || imgH <= 0) return;
-
+                
                 double scale = Math.min((double) pw / imgW, (double) ph / imgH);
                 int drawW = (int) (imgW * scale);
                 int drawH = (int) (imgH * scale);
@@ -288,3 +276,9 @@ public class ScrnMainMenuHowToUse extends JPanel {
         }
     }
 }
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: java/awt/BorderLayout#

@@ -1,3 +1,14 @@
+error id: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorMain.java:javax/swing/JPanel#
+file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorMain.java
+empty definition using pc, found symbol in pc: javax/swing/JPanel#
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+
+offset: 216
+uri: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorMain.java
+text:
+```scala
 package graphics;
 
 import engine.MainEngine;
@@ -7,7 +18,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class ScrnSimulatorMain extends JPanel {
+public class ScrnSimulatorMain extends JPan@@el {
     private Branding branding;
     private MainEngine mainEngine;
     private JPanel parentContainer;
@@ -602,3 +613,9 @@ public class ScrnSimulatorMain extends JPanel {
     public JTextArea getInputArea() { return inputArea; }
     public int getPageFrameCount() { return (int) pageFrameSpinner.getValue(); }
 }
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: javax/swing/JPanel#

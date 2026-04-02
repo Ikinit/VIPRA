@@ -1,10 +1,21 @@
+error id: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java:javax/swing/JButton#
+file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java
+empty definition using pc, found symbol in pc: javax/swing/JButton#
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+
+offset: 25736
+uri: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnSimulatorOutput.java
+text:
+```scala
 package graphics;
 
 import engine.MainEngine;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -239,28 +250,19 @@ public class ScrnSimulatorOutput extends JPanel {
         speedLbl.setForeground(branding.light);
         speedLbl.setBorder(new EmptyBorder(0, 24, 0, 8));
 
-        JPanel center = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        center.setOpaque(false);
-        center.add(timerLabel);
-        center.add(speedLbl);
-        center.add(speedButton);
+        JPanel centre = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        centre.setOpaque(false);
+        centre.add(timerLabel);
+        centre.add(speedLbl);
+        centre.add(speedButton);
 
-        JButton exportPngBtn = makePillButton("Export to PNG");
-        exportPngBtn.setPreferredSize(new Dimension(180, 48));
-        exportPngBtn.addActionListener(e -> exportToPng());
-
-        JButton exportPdfBtn = makePillButton("Export to PDF");
-        exportPdfBtn.setPreferredSize(new Dimension(180, 48));
-        exportPdfBtn.addActionListener(e -> exportToPdf());
-
-        JPanel exportPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
-        exportPanel.setOpaque(false);
-        exportPanel.add(exportPdfBtn);
-        exportPanel.add(exportPngBtn);
+        JButton exportBtn = makePillButton("Export to PNG");
+        exportBtn.setPreferredSize(new Dimension(180, 48));
+        exportBtn.addActionListener(e -> exportToPng());
 
         bar.add(backBtn, BorderLayout.WEST);
-        bar.add(center, BorderLayout.CENTER);
-        bar.add(exportPanel, BorderLayout.EAST);
+        bar.add(centre, BorderLayout.CENTER);
+        bar.add(exportBtn, BorderLayout.EAST);
 
         add(bar, BorderLayout.NORTH);
     }
@@ -540,126 +542,6 @@ public class ScrnSimulatorOutput extends JPanel {
     }
 
     // ==================================================
-    //               EXPORT TO PDF
-    // ==================================================
-    private void exportToPdf() {
-        try {
-            JFileChooser chooser = new JFileChooser();
-            chooser.setDialogTitle("Export Simulation to PDF");
-            chooser.setSelectedFile(new File("simulation_output.pdf"));
-            if (chooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) return;
-
-            File file = chooser.getSelectedFile();
-            if (!file.getName().toLowerCase().endsWith(".pdf"))
-                file = new File(file.getAbsolutePath() + ".pdf");
-
-            int panelW = scrollContent.getWidth();
-            int panelH = scrollContent.getHeight();
-            BufferedImage img = new BufferedImage(panelW, panelH, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2 = img.createGraphics();
-            g2.setColor(branding.dark);
-            g2.fillRect(0, 0, panelW, panelH);
-            scrollContent.paint(g2);
-            g2.dispose();
-
-            ByteArrayOutputStream jpegBaos = new ByteArrayOutputStream();
-            ImageIO.write(img, "JPEG", jpegBaos);
-            byte[] jpegBytes = jpegBaos.toByteArray();
-
-            final int SCREEN_DPI = 96;
-            final double PT_PER_PX = 72.0 / SCREEN_DPI;
-            int pageWidthPt  = (int) Math.ceil(panelW * PT_PER_PX);
-            int pageHeightPt = (int) Math.ceil(panelH * PT_PER_PX);
-
-            ByteArrayOutputStream pdfBaos = new ByteArrayOutputStream();
-            int[] offsets = new int[6];
-
-            writePdf(pdfBaos, "%PDF-1.4\n");
-            writePdf(pdfBaos, "%\u00e2\u00e3\u00cf\u00d3\n");
-
-            offsets[1] = pdfBaos.size();
-            writePdf(pdfBaos, "1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n");
-
-            offsets[2] = pdfBaos.size();
-            writePdf(pdfBaos, "2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n");
-
-            offsets[3] = pdfBaos.size();
-            writePdf(pdfBaos,
-                "3 0 obj\n"
-                + "<< /Type /Page\n"
-                + "   /Parent 2 0 R\n"
-                + "   /MediaBox [0 0 " + pageWidthPt + " " + pageHeightPt + "]\n"
-                + "   /Contents 5 0 R\n"
-                + "   /Resources << /XObject << /Img 4 0 R >> >>\n"
-                + ">>\n"
-                + "endobj\n");
-
-            offsets[4] = pdfBaos.size();
-            String imgHeader =
-                "4 0 obj\n"
-                + "<< /Type /XObject\n"
-                + "   /Subtype /Image\n"
-                + "   /Width "  + panelW + "\n"
-                + "   /Height " + panelH + "\n"
-                + "   /ColorSpace /DeviceRGB\n"
-                + "   /BitsPerComponent 8\n"
-                + "   /Filter /DCTDecode\n"
-                + "   /Length " + jpegBytes.length + "\n"
-                + ">>\n"
-                + "stream\n";
-            writePdf(pdfBaos, imgHeader);
-            pdfBaos.write(jpegBytes);
-            writePdf(pdfBaos, "\nendstream\nendobj\n");
-
-            String contentStr =
-                "q\n"
-                + pageWidthPt + " 0 0 " + pageHeightPt + " 0 0 cm\n"
-                + "/Img Do\n"
-                + "Q\n";
-            byte[] contentBytes = contentStr.getBytes("US-ASCII");
-            offsets[5] = pdfBaos.size();
-            writePdf(pdfBaos,
-                "5 0 obj\n"
-                + "<< /Length " + contentBytes.length + " >>\n"
-                + "stream\n");
-            pdfBaos.write(contentBytes);
-            writePdf(pdfBaos, "\nendstream\nendobj\n");
-
-            int xrefOffset = pdfBaos.size();
-            writePdf(pdfBaos, "xref\n");
-            writePdf(pdfBaos, "0 6\n");
-            writePdf(pdfBaos, "0000000000 65535 f \n");
-            for (int i = 1; i <= 5; i++) {
-                writePdf(pdfBaos, String.format("%010d 00000 n \n", offsets[i]));
-            }
-
-            writePdf(pdfBaos,
-                "trailer\n"
-                + "<< /Size 6 /Root 1 0 R >>\n"
-                + "startxref\n"
-                + xrefOffset + "\n"
-                + "%%EOF\n");
-
-            try (FileOutputStream fos = new FileOutputStream(file)) {
-                pdfBaos.writeTo(fos);
-            }
-
-            JOptionPane.showMessageDialog(this,
-                    "Exported to: " + file.getAbsolutePath(),
-                    "Export Successful", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this,
-                    "Export failed: " + ex.getMessage(),
-                    "Export Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private void writePdf(OutputStream out, String s) throws IOException {
-        out.write(s.getBytes("ISO-8859-1"));
-    }
-
-    // ==================================================
     //               HELPERS
     // ==================================================
     private JLabel makeMonoLabel(String text, Font font, int size) {
@@ -728,7 +610,7 @@ public class ScrnSimulatorOutput extends JPanel {
                 trackColor = branding.dark;
             }
             @Override protected JButton createDecreaseButton(int o) { return zeroButton(); }
-            @Override protected JButton createIncreaseButton(int o) { return zeroButton(); }
+            @Override protected JBu@@tton createIncreaseButton(int o) { return zeroButton(); }
             private JButton zeroButton() {
                 JButton b = new JButton(); b.setPreferredSize(new Dimension(0, 0)); return b;
             }
@@ -738,3 +620,9 @@ public class ScrnSimulatorOutput extends JPanel {
         repaint();
     }
 }
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: javax/swing/JButton#

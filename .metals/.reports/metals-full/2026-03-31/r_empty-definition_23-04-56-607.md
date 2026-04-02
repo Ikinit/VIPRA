@@ -1,3 +1,14 @@
+error id: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnMainMenuHowToUse.java:javax/swing/JPanel#
+file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnMainMenuHowToUse.java
+empty definition using pc, found symbol in pc: javax/swing/JPanel#
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+
+offset: 8729
+uri: file:///C:/Users/Mac%20Calimba/Documents/GitHub/VIPRA/src/graphics/ScrnMainMenuHowToUse.java
+text:
+```scala
 package graphics;
 
 import engine.MainEngine;
@@ -239,7 +250,7 @@ public class ScrnMainMenuHowToUse extends JPanel {
     }
 
     public JPanel makeImagePanel(Image image, String imageType) {
-        JPanel panel = new JPanel() {
+        J@@Panel panel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -288,3 +299,9 @@ public class ScrnMainMenuHowToUse extends JPanel {
         }
     }
 }
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: javax/swing/JPanel#
